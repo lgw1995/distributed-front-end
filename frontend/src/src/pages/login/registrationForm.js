@@ -1,5 +1,5 @@
 import "antd/dist/antd.css";
-import {Form, Input, Button, message, InputNumber,Radio,Select} from "antd";
+import {Form, Input, Button, InputNumber,Radio,Select} from "antd";
 import React,{Component} from "react";
 import '../../api'
 const { Option } = Select;
