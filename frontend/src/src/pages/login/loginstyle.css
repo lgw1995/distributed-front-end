@@ -21,14 +21,36 @@
 
 }
 .login-section .login-container{
+    border-radius: 30px;
+    /*background-image: linear-gradient(-135deg, #91B4D9,#D5B0DF, #91B4D9,#D5B0DF);*/
+    background-image: linear-gradient(-135deg, rgba(0,153,255,0.5), rgba(255,153,255, 0.5));
     position: relative;
     width: 500px;
     height: 400px;
-    background: #fff;
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 
 }
+
+/*modify for tmp*/
+.login-section .login-container .ant-form-item-label > label,
+.login-section .login-container .login-user h2{
+    color: #3333CC!important;
+}
+
+.login-section .login-container .login-user h2{
+    margin: -25px 0 0 -20px;
+}
+
+.login-section .login-container .login-user h2+form{
+    margin-left: -50px;
+    margin-top: 45px;
+
+}
+.login-section .login-container .login-user h2+form .ant-btn.ant-btn-primary{
+    margin-left: 35px;
+}
+/*modify for tmp*/
 
 .login-section .login-container .login-user{
     position: absolute;
