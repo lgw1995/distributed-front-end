@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64bcbc5b-d43b-4a87-834e-80730a24de55" name="Changes" comment="" />
+    <list default="true" id="64bcbc5b-d43b-4a87-834e-80730a24de55" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/src/api/ajax.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/src/api/ajax.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="276Yd9BltkgwrB5wJbXEOOhYNmW" />
   <component name="ProjectViewState">
@@ -17,7 +26,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../web/react/test_20092602" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -36,6 +45,8 @@
       <option name="presentableId" value="Default" />
       <updated>1648642089438</updated>
       <workItem from="1648642092426" duration="2802000" />
+      <workItem from="1649626728476" duration="24000" />
+      <workItem from="1649631414932" duration="197000" />
     </task>
     <servers />
   </component>

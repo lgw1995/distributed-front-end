@@ -19,9 +19,21 @@ export default function ajax(url,data={},type='GET'){
         let promise
         if(type === 'GET'){
             promise = axiosInstance.get(url, {params:data})//query parameter
-        }else{
-            console.log("Send back-end : "+ url);
+        }
+        else if(type == 'POST')
+        {
+            console.log("POST back-end : "+ url);
             promise = axiosInstance.post(url,data)
+        }
+        else if(type == 'DELETE')
+        {
+            console.log("DELETE back-end : "+ url);
+            promise = axiosInstance.delete(url,data)
+        }
+        else
+        {
+            console.log("PUT back-end : "+ url);
+            promise = axiosInstance.put(url,data)
         }
         promise.then(response =>{
             // if success
