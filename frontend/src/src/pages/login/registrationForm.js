@@ -2,7 +2,9 @@ import "antd/dist/antd.css";
 import {Form, Input, Button, InputNumber,Radio,Select} from "antd";
 import React,{Component} from "react";
 import '../../api'
-const { Option } = Select;
+import ajax from "../../api/ajax";
+const { Option,OptGroup} = Select;
+
 
 
 
@@ -14,7 +16,14 @@ class  RegistrationForm extends Component{
         dietary_restrictions:'no',
         gym_equipment: ['no'],
         weight_goals:'weight gain',
+        location_list:[],
+
     }
+    constructor(props) {
+        super(props);
+
+    }
+
      formItemLayout = {
         labelCol: {
             xs: {
@@ -47,6 +56,15 @@ class  RegistrationForm extends Component{
     };
 
 
+     async componentDidMount() {
+
+         var test = await ajax("/location", "1", 'GET')
+         this.setState({tlocation_list:test})
+
+         this.setState({location_list:[{ "region": "Asia", "country":"India"},{ "region": "Asia", "country":"China"}]})
+
+     }
+
     /**
      * @function：onFinish
      * @parameter：After clicking the register button
@@ -55,14 +73,42 @@ class  RegistrationForm extends Component{
      onFinish = async (v) => {
          console.log(v)
          //await register(v.email, v.password, v)
+         if(v.usertype == 'athlete')
+         {
+            v.usertype = true
+         }
+         else {
+             v.usertype = false
+         }
+
+         var userdata = {
+             name:v.username,
+             email:v.email,
+             password:v.password,
+             isAthlete:v.usertype,
+             location:{
+                 region:v.location.split("-")[0],
+                 country:v.location.split("-")[1]
+             }
+         }
+
+
+         console.log(userdata);
+         //var response =  await ajax("/user/register",userdata,'POST')
+         //console.log("Registration Response:"+response.data)
      };
 
 
     render() {
 
+
         const genderChange = (value)=> {
             console.log("genderChange:"+value.target.value)
             this.setState({gender:value})
+        }
+
+        const handleChange = (value)=> {
+            console.log(`selected ${value}`);
         }
 
         return(
@@ -74,8 +120,20 @@ class  RegistrationForm extends Component{
                 scrollToFirstError
             >
                 <Form.Item
+                    name="username"
+                    label="Username"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Please input your username!"
+                        }
+                    ]}>
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
                     name="email"
-                    label="E-mail"
+                    label="E-mail(@wada)"
                     rules={[
                         {
                             type: "email",
@@ -143,11 +201,18 @@ class  RegistrationForm extends Component{
 
 
 
-                <Form.Item name={'gender'} label="Gender" initialValue={"male"}>
-                    <Radio.Group onChange={genderChange} defaultValue={'male'}>
-                        <Radio value={'male'}>Male</Radio>
-                        <Radio value={'female'}>Female</Radio>
-                    </Radio.Group>
+                <Form.Item name={'location'} label="Location">
+
+                    <Select style={{ width: 200 }} onChange={handleChange}>
+
+                        {
+                            this.state.location_list.map((result)=>{
+                                console.log(result)
+                                return <Option value={result.region+"-"+result.country}>{result.region+"-"+result.country}</Option>
+                            })
+                        }
+                    </Select>
+
                 </Form.Item>
 
                 <Form.Item name={'usertype'}  label={"User Types"} initialValue={"athlete"} rules={[{ required: true, message: '' }]}>
