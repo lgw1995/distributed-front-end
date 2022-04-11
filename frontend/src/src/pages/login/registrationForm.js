@@ -201,7 +201,7 @@ class  RegistrationForm extends Component{
 
 
 
-                <Form.Item name={'location'} label="Location">
+                <Form.Item name={'location'} label="Location"  rules={[{ required: true}]}>
 
                     <Select style={{ width: 200 }} onChange={handleChange}>
 
