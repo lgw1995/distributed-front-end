@@ -58,8 +58,8 @@ class  RegistrationForm extends Component{
 
      async componentDidMount() {
 
-         var test = await ajax("/location", "1", 'GET')
-         this.setState({tlocation_list:test})
+         //var test = await ajax("/location", "1", 'GET')
+         //this.setState({tlocation_list:test})
 
          this.setState({location_list:[{ "region": "Asia", "country":"India"},{ "region": "Asia", "country":"China"}]})
 
@@ -94,8 +94,8 @@ class  RegistrationForm extends Component{
 
 
          console.log(userdata);
-         //var response =  await ajax("/user/register",userdata,'POST')
-         //console.log("Registration Response:"+response.data)
+         var response =  await ajax("/user/register",userdata,'POST')
+         console.log("Registration Response:"+response.data)
      };
 
 
