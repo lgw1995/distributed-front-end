@@ -58,10 +58,12 @@ class  RegistrationForm extends Component{
 
      async componentDidMount() {
 
-         //var test = await ajax("/location", "1", 'GET')
-         //this.setState({tlocation_list:test})
+         var test = await ajax("/location", "1", 'GET')
 
-         this.setState({location_list:[{ "region": "Asia", "country":"India"},{ "region": "Asia", "country":"China"}]})
+
+         this.setState({location_list:test.data})
+
+         //this.setState({location_list:[{ "region": "Asia", "country":"India"},{ "region": "Asia", "country":"China"}]})
 
      }
 
