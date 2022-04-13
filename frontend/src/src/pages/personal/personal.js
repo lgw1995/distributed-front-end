@@ -7,7 +7,7 @@ import {Redirect,Link,Route,Switch} from 'react-router-dom'
 import {message,Image,Button,Modal} from "antd";
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
-   ExclamationCircleOutlined ,
+   ExclamationCircleOutlined,
     PieChartOutlined,
     UserOutlined,
 } from '@ant-design/icons';
@@ -18,6 +18,9 @@ import { withRouter } from 'react-router-dom';
 import {formateDate} from "../../utils/dateUtils";
 import About from "../about/about";
 import PersonalInformation from "../personalinformation/personalinformation"
+import Athleteslist from "../ado/athleteslist"
+import Invitedrecord from "../ado/invitedrecord"
+import Adolist from "../athletes/adolist"
 const { confirm } = Modal;
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -97,9 +100,12 @@ const { SubMenu } = Menu;
                 <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
                     <div className="logo" />
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-                        <Menu.Item key="1"> <Link to ='/personal/about/about'>About</Link> </Menu.Item>
-                        <Menu.Item key="2"> <Link to ='/personal/personalinformation'>Personal information</Link></Menu.Item>
-                        <Menu.Item key="3">nav 3</Menu.Item>
+                        {/*<Menu.Item key="1"> <Link to ='/personal/about'>About</Link> </Menu.Item>*/}
+                        {/*<Menu.Item key="2"> <Link to ='/personal/personalinformation'>Personal information</Link></Menu.Item>*/}
+                        {/*<Menu.Item key="3">nav 3</Menu.Item>*/}
+                        <Menu.Item key="4"> <Link to ='/personal/ado/athleteslist'>Ath List</Link> </Menu.Item>
+                        <Menu.Item key="5"> <Link to ='/personal/ado/invitedrecord'>inveted Record</Link> </Menu.Item>
+                        <Menu.Item key="6"> <Link to ='/personal/athletes/adolist'>ADO List</Link> </Menu.Item>
                     </Menu>
                 </Header>
                 <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
@@ -115,6 +121,10 @@ const { SubMenu } = Menu;
                         <Switch>
                             <Route path='/personal/personalinformation' component={PersonalInformation}/>
                             <Route path='/personal/about' component={About}/>
+                            <Route path='/personal/ado/athleteslist' component={Athleteslist}/>
+                            <Route path='/personal/ado/invitedrecord' component={Invitedrecord}/>
+                            <Route path='/personal/athletes/adolist' component={Adolist}/>
+                            {/*<Route path='/personal/athletes/submitedrecord' component={Submitedrecord}/>*/}
                             <Redirect to='/personal/about'/>
                         </Switch>
                     </div>
