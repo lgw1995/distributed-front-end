@@ -22,7 +22,7 @@ export default class UpdateAvailability extends Component{
             athleteCountry: this.props.record.athleteCountry,
             athleteRegion: this.props.record.athleteRegion,
             athleteEmail: this.props.record.athleteEmail,
-            time: this.props.record.time,
+            time: this.props.record.time/1000,
             country: this.props.record.country,
             region: this.props.record.region,
             locations:[]
@@ -52,28 +52,27 @@ export default class UpdateAvailability extends Component{
     }
 
     onUpdate(e){
-        this.props.onUpdate(this.state.country, this.state.region, this.state.time, this.state.availabilityId);
-        ajax(`http://52.190.2.8:8005/availability/${this.state.athleteId}`, {
+        this.props.onUpdate(this.state.country, this.state.region, this.state.time*1000, this.state.availabilityId);
+        ajax(`/availability/${this.state.athleteId}`, {
             "availabilityId": this.state.availabilityId,
-            "startTimeStamp": this.state.time,
+            "startTimeStamp": this.state.time*1000,
             "location": {
                 "country": this.state.country,
                 "region": this.state.region
             }
         }, "PATCH");
-
         this.onClose();
     }
 
     onDelete(e){
-        ajax(`http://52.190.2.8:8005/availability/${this.state.availabilityId}`, {}, 'DELETE');
+        ajax(`/availability/${this.state.availabilityId}`, {}, 'DELETE');
         this.props.onDelete();
         this.onClose();
     }
 
     async componentDidMount() {
         // this.setState({location_list:[{ "region": "Asia", "country":"India"},{ "region": "Asia", "country":"China"}]})
-        this.setState({locations:(await ajax("http://52.190.2.8:8006/location/", {}, 'GET')).data.locations});
+        this.setState({locations:(await ajax("/location/", {}, 'GET')).data.locations});
     }
 
 
@@ -148,7 +147,12 @@ export default class UpdateAvailability extends Component{
                         <label>
                             Date:
                             <br />
+                            {/*<DatePicker defaultValue={moment(new Date(this.state.time), dateFormat)} format={dateFormat} onChange={(time, timeString)=>this.onTimePick(time, timeString)}/>*/}
                             <DatePicker defaultValue={moment(new Date(this.state.time*1000), dateFormat)} format={dateFormat} onChange={(time, timeString)=>this.onTimePick(time, timeString)}/>
+                            {/*<DatePicker defaultValue={(()=>{*/}
+                            {/*    let date = new Date(this.state.time*1000);*/}
+                            {/*    return `${date.getHours()}:${date.getMinutes()} ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`*/}
+                            {/*})()} format={dateFormat} onChange={(time, timeString)=>this.onTimePick(time, timeString)}/>*/}
                         </label>
                         <br />
                         <br />

@@ -66,8 +66,8 @@ export default class Appointment extends Component{
                     dataIndex: 'time',
                     key: 'time',
                     render: text => {
-                        let date = new Date(text*1000);
-                        return `${date.getHours()}:${date.getMinutes()} ${date.getDay()}-${date.getUTCDate()}-${date.getFullYear()}`
+                        let date = new Date(text);
+                        return moment(date, dateFormat).toString();
                     }
                 }]
             };
@@ -75,16 +75,9 @@ export default class Appointment extends Component{
     }
 
     async getAppointmentForAdo(adoId){
-        // 写死 后面删除
-        // adoId = '6256086d43c3bf60eb4fc63e';
-        // alert(adoId);
-        // let dd = ajax("http://52.190.2.8:8007/ado/getAllAppointments", {adoId:"6256086d43c3bf60eb4fc63e"}, "POST");
-        // console.log("####");
-        // console.log(dd);
-        // console.log("####");
 
         this.setState({
-            data: (await ajax("http://52.190.2.8:8007/ado/getAllAppointments", {adoId:"6256086d43c3bf60eb4fc63e"}, "POST")).data.map((o)=>{
+            data: (await ajax("/ado/getAllAppointments", {adoId}, "POST")).data.map((o)=>{
                 let data = {};
                 data.availabilityId = o.availabilityId;
                 data.athleteId =  o.athlete.athleteId;

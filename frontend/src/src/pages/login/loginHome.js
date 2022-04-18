@@ -1,5 +1,6 @@
 import {Form, Input, Drawer, Button, Checkbox, message, Modal, Divider, Radio} from 'antd';
 import React,{Component} from "react";
+import {green} from "@ant-design/colors";
 import DrawerForm from './registrationDrawer'
 import {StaticRouter, withRouter} from 'react-router-dom';
 import ajax from "../../api/ajax";
@@ -19,12 +20,6 @@ class  LoginHome extends Component{
 
     constructor(props) {
         super(props);
-        this.testNet();
-    }
-
-    async testNet() {
-        let response = (await ajax("http://52.190.2.8:8006/location/", {}, 'GET')).data.locations
-        console.log(response);
     }
 
     onFinishFailed = (errorInfo) => {
@@ -39,7 +34,7 @@ class  LoginHome extends Component{
      */
      onFinish = async (e) => {
          withRouter(LoginHome)
-         let response =  await ajax("http://52.190.2.8:8006/user/login", {
+         let response =  await ajax("/user/login", {
              "email": e.username,
              "password": e.password
          },'POST')

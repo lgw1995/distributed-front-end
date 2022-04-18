@@ -54,7 +54,7 @@ class  RegistrationForm extends Component{
 
 
      async componentDidMount() {
-         this.setState({location_list:(await ajax("http://52.190.2.8:8006/location/", {}, 'GET')).data.locations});
+         this.setState({location_list:(await ajax("/location/", {}, 'GET')).data.locations});
      }
 
     /**
@@ -85,8 +85,9 @@ class  RegistrationForm extends Component{
 
 
          console.log(userdata);
-         let response =  await ajax("http://52.190.2.8:8006/user/register",userdata,'POST')
+         let response =  await ajax("/user/register",userdata,'POST')
          console.log("Registration Response:"+response.data)
+         this.props.onClose();
      };
 
 

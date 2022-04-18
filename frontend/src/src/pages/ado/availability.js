@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import './ado.css'
 import User from '../../model/User'
 import StoreUser from '../../utils/StoreUser'
-import {Space, Table, DatePicker, Button, Drawer} from "antd";
+import {Tag, Space, Table, DatePicker, Button, Drawer} from "antd";
+import {green} from "@ant-design/colors";
 import moment from 'moment';
 import ajax from "../../api/ajax";
 import UpdateAvailability from "./updateAvailability";
@@ -62,29 +63,58 @@ export default class Availability extends Component{
                     dataIndex: 'region',
                     key: 'region',
                 }, {
+                    title: 'Book Status',
+                    dataIndex: 'bookStatus',
+                    key: 'bookStatus',
+                    render: status => {
+                        // TODO:
+                        if (status){
+                            return (<Tag color="green">Ready To Book</Tag>);
+                        } else{
+                            return (<Tag color="red">Booked</Tag>);
+                        }
+                    }
+                }, {
                     title: 'time',
                     dataIndex: 'time',
                     key: 'time',
                     render: text => {
-                        let date = new Date(text*1000);
-                        return `${date.getHours()}:${date.getMinutes()} ${date.getDay()}-${date.getUTCDate()}-${date.getFullYear()}`
+                        let date = new Date(text);
+                        // return `${date.getHours()}:${date.getMinutes()} ${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+                        return moment(date, dateFormat).toString();
                     }
                 }, {
                     title: 'Action',
                     key: 'action',
                     render: (text, record) => (
                         <Space size="middle">
-                            <UpdateAvailability onUpdate={(i, j, k, id) => this.updateNewState(i, j, k, id)} onDelete={(id)=>this.delOneState(id)} record={record}/>
+                            {/*<UpdateAvailability onUpdate={(i, j, k, id) => this.updateNewState(i, j, k, id)} onDelete={(id)=>this.delOneState(id)} record={record}/>*/}
+
+                            {(()=>{
+                                if(record.bookStatus && User.ADO === StoreUser.getMyRole()) {
+                                    return (
+                                        <Button style={{backgroundColor: green[7]}} type="primary"
+                                                onClick={() => this.onBook(record.availabilityId)} block> Book
+                                        </Button>)
+                                } else {
+                                    return (
+                                        <Button type="primary" block disabled> Booked </Button>)
+                                }
+                            })()}
+
                         </Space>
                     ),
                 }]
             };
 
+        if(User.ATHLETE === StoreUser.getMyRole()){
+            this.state.columns = this.state.columns.filter((o, i)=> i!==6&&i!==8);
+        }
     }
 
     async getAllAvailability() {
         this.setState({
-            data: (await ajax("http://52.190.2.8:8005/availability", {}, "GET")).data.map((o)=>{
+            data: (await ajax("/availability", {}, "GET")).data.map((o)=>{
                 let data = {};
                 data.availabilityId = o.availabilityId;
                 data.athleteId =  o.athlete.athleteId;
@@ -102,7 +132,7 @@ export default class Availability extends Component{
 
     async getAvaForAthlete(checkId){
         this.setState({
-            data: (await ajax(`http://52.190.2.8:8005/availability/athlete/${checkId}`, {}, "GET")).data.map((o)=>{
+            data: (await ajax(`/availability/athlete/${checkId}`, {}, "GET")).data.map((o)=>{
                 let data = {};
                 data.availabilityId = o.availabilityId;
                 data.athleteId =  o.athlete.athleteId;
@@ -113,9 +143,11 @@ export default class Availability extends Component{
                 data.country = o.location.country;
                 data.region = o.location.region;
                 data.time = o.startTimeStamp;
+                data.bookStatus = !o.isAppointment;
                 return data;
             })
-        })
+        });
+
     }
 
     updateNewState(country, region, time, id){
@@ -138,6 +170,12 @@ export default class Availability extends Component{
         window.location.reload();
     }
 
+    async onBook(availabilityId){
+        let response = await ajax("/ado/bookTestForAthlete", {availabilityId}, "POST");
+        if (response.data)
+            window.location.reload();
+    }
+
     render() {
         return (
             <>
@@ -152,6 +190,7 @@ export default class Availability extends Component{
                                 paddingRight: "30px",
                                 margin: "10px",
                                 marginTop: "-50px"
+
                             }}>
                                 <span> Availability of {name}</span>
                             </div>

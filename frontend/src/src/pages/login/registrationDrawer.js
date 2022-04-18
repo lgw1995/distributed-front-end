@@ -50,7 +50,7 @@ class RegistrationDrawer extends React.Component {
                         </div>
                     }
                 >
-                    <RegistrationForm/>
+                    <RegistrationForm onClose={()=>this.onClose()}/>
                 </Drawer>
             </>
         );

@@ -7,18 +7,18 @@ export default class StoreUser {
     }
 
     static getMe() {
-        return store.get(StoreUser.USER_ID);
+        return StoreUser.USER_ID ? store.get(StoreUser.USER_ID): "";
     }
 
     static getMyId() {
-        return store.get(StoreUser.USER_ID).id;
+        return StoreUser.USER_ID ? store.get(StoreUser.USER_ID).id: "";
     }
 
     static getMyRole() {
-        return store.get(StoreUser.USER_ID).role;
+        return StoreUser.USER_ID ? store.get(StoreUser.USER_ID).role: "";
     }
     static getMyToken() {
-        return store.get(StoreUser.USER_ID).token;
+        return StoreUser.USER_ID ? store.get(StoreUser.USER_ID).token: "";
     }
 
     static remove(id) {
@@ -36,6 +36,6 @@ export default class StoreUser {
     }
 
     static get USER_ID() {
-        return store.get("current_hoster_id");
+        return store.get("current_hoster_id")||"";
     }
 }

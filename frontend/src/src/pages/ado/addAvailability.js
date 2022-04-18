@@ -22,7 +22,7 @@ export default class AddAvailability extends Component{
     }
 
     async componentDidMount() {
-        this.setState({locations:(await ajax("http://52.190.2.8:8006/location/", {}, 'GET')).data.locations});
+        this.setState({locations:(await ajax("/location/", {}, 'GET')).data.locations});
     }
 
     showDrawer(e){
@@ -39,7 +39,7 @@ export default class AddAvailability extends Component{
 
     onTimePick(time, timeString){
         this.setState({date: timeString});
-        this.setState({timeStamp: (new Date(time.toString())).getTime()/1000});
+        this.setState({timeStamp: (new Date(time.toString())).getTime()});
     }
 
     onUpdate(e){
@@ -64,7 +64,8 @@ export default class AddAvailability extends Component{
 
     onAdd(e){
         if(this.state.date && this.state.selCountry && this.state.selRegion){
-            ajax(`http://52.190.2.8:8005/availability/${StoreUser.getMyId()}`, {
+            let u = `/availability/${StoreUser.getMyId()}`;
+            let a = ajax(u, {
                 "startTimeStamp": this.state.timeStamp,
                 "location": {
                     "country": this.state.selCountry,
@@ -72,7 +73,7 @@ export default class AddAvailability extends Component{
                 }
             }, "POST");
             this.props.onAdd();
-            this.onClose();
+
         } else{
             alert("Error! Please fill this form, Thanks.");
         }

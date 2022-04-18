@@ -55,7 +55,7 @@ export default class Athleteslist extends Component{
     }
 
     async getMyAthletes(){
-        this.setState({data: (await ajax("http://52.190.2.8:8007/ado/getAthletes", {adoId: StoreUser.getMyId()}, 'POST')).data.map((o)=>{
+        this.setState({data: (await ajax("/ado/getAthletes", {adoId: StoreUser.getMyId()}, 'POST')).data.map((o)=>{
                 let d = {};
                 d.key = o.athleteId;
                 d.id = o.athleteId;
