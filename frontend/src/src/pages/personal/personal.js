@@ -14,13 +14,13 @@ import {
 import './personal.css'
 import memoryUtils from "../../utils/memoryUtils";
 import storageUtils from "../../utils/storageUtils";
+import StoreUser from "../../utils/StoreUser";
+import User from "../../model/User"
 import { withRouter } from 'react-router-dom';
 import {formateDate} from "../../utils/dateUtils";
-import About from "../about/about";
-import PersonalInformation from "../personalinformation/personalinformation"
 import Athleteslist from "../ado/athleteslist"
-import Invitedrecord from "../ado/invitedrecord"
-import Adolist from "../athletes/adolist"
+import Availability from "../ado/availability"
+import Appointment from "../ado/appointment"
 const { confirm } = Modal;
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -53,6 +53,7 @@ const { SubMenu } = Menu;
                  console.log('OK');
                  //Deletes user information stored locally
                  storageUtils.removeUser();
+                 StoreUser.removeMe();
                  memoryUtils.user={};
                  memoryUtils.userID = {};
 
@@ -94,20 +95,34 @@ const { SubMenu } = Menu;
         // }
 
         const { collapsed } = this.state;
-
+        var role = StoreUser.getMyRole();
+        var tit = role === User.ADO ? "ADO" : "Athlete";
         return (
             <Layout>
                 <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
                     <div className="logo" />
                     <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['1']}>
-                        {/*<Menu.Item key="1"> <Link to ='/personal/about'>About</Link> </Menu.Item>*/}
-                        {/*<Menu.Item key="2"> <Link to ='/personal/personalinformation'>Personal information</Link></Menu.Item>*/}
-                        {/*<Menu.Item key="3">nav 3</Menu.Item>*/}
-                        <Menu.Item key="4"> <Link to ='/personal/ado/athleteslist'>Ath List</Link> </Menu.Item>
-                        <Menu.Item key="5"> <Link to ='/personal/ado/invitedrecord'>inveted Record</Link> </Menu.Item>
-                        <Menu.Item key="6"> <Link to ='/personal/athletes/adolist'>ADO List</Link> </Menu.Item>
+                        {(()=>{
+                            if(User.ADO === role){
+                                return (
+                                    <>
+                                    <Menu.Item key="4"> <Link to ='/personal/ado/athleteslist'>Athletes List</Link> </Menu.Item>
+                                    <Menu.Item key="5"> <Link to ='/personal/ado/appointment'>Appointments List</Link> </Menu.Item>
+                                    </> )
+                            }else{
+                                return (
+                                    <>
+                                    <Menu.Item key="6"> <Link to ='/personal/ado/avalibility'>Availability</Link> </Menu.Item>
+                                    </> )
+                            }
+                        })()}
                     </Menu>
                 </Header>
+                <div style={{position: "fixed", right: "50px", zIndex:"10000", top: "20px", fontSize: "18px", color: "white", fontWeight: "bolder"}}>
+                    <span>
+                        I'm {tit}
+                    </span>
+                </div>
                 <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <div>
@@ -119,12 +134,9 @@ const { SubMenu } = Menu;
                     <div>
                         {/*Routing management for personal pages*/}
                         <Switch>
-                            <Route path='/personal/personalinformation' component={PersonalInformation}/>
-                            <Route path='/personal/about' component={About}/>
                             <Route path='/personal/ado/athleteslist' component={Athleteslist}/>
-                            <Route path='/personal/ado/invitedrecord' component={Invitedrecord}/>
-                            <Route path='/personal/athletes/adolist' component={Adolist}/>
-                            {/*<Route path='/personal/athletes/submitedrecord' component={Submitedrecord}/>*/}
+                            <Route path='/personal/ado/appointment' component={Appointment}/>
+                            <Route path='/personal/ado/avalibility' component={Availability}/>
                             <Redirect to='/personal/about'/>
                         </Switch>
                     </div>

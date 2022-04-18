@@ -8,7 +8,6 @@ export default class PersonalInformation extends Component{
         list: {},
     };
     componentDidMount() {
-        //this.queryInformation();
     }
     render() {
         const user = memoryUtils.user;

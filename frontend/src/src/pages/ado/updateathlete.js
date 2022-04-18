@@ -3,7 +3,6 @@ import './ado.css'
 import {Space, Table, DatePicker, Button, Drawer} from "antd";
 import moment from 'moment';
 import ajax from "../../api/ajax";
-import InvitedRecord from "./invitedrecord";
 const dateFormat = 'HH:mm DD-MM-YYYY';
 const GET = 'GET'
 const POST = 'POST'
@@ -65,21 +64,7 @@ export default class Updateathlete extends Component{
         this.setState({data: ajaxData});
     }
 
-    onInvited(e){
-        let ajaxData = {
-            id: this.state.id,
-            name: this.state.name,
-            age: this.state.age,
-            address: this.state.address,
-            date: this.state.date,
-        }
-        // ajax(url, ajaxData , POST)
-        window.sessionStorage.setItem("athId", this.state.id);
-        window.location.href= "../ado/invitedrecord";
-    }
-
     onRecord(e){
-        window.sessionStorage.setItem("athId", this.state.id);
         window.location.href= "../ado/invitedrecord";
     }
 
@@ -142,20 +127,14 @@ export default class Updateathlete extends Component{
                         <br />
                         <br />
 
-                        <Button type="primary" onClick={this.onDelete.bind(this)} block danger>
-                            DELETE
-                        </Button>
-                        <br />
-                        <br />
+                        {/*<Button type="primary" onClick={this.onDelete.bind(this)} block danger>*/}
+                        {/*    DELETE*/}
+                        {/*</Button>*/}
+                        {/*<br />*/}
+                        {/*<br />*/}
 
-                        <Button type="dashed" onClick={this.onInvited.bind(this)} block danger>
-                            Invite for this time
-                        </Button>
-                        <br />
-                        <br />
-
-                        <Button type="text" onClick={this.onRecord.bind(this)} block danger>
-                            RECORD
+                        <Button type="primary" onClick={this.onRecord.bind(this)} block danger>
+                            Check All Availability
                         </Button>
                         <br />
                         <br />

@@ -5,9 +5,6 @@ import '../../api'
 import ajax from "../../api/ajax";
 const { Option,OptGroup} = Select;
 
-
-
-
 class  RegistrationForm extends Component{
     state = {
         experience:'1 month',
@@ -16,7 +13,7 @@ class  RegistrationForm extends Component{
         dietary_restrictions:'no',
         gym_equipment: ['no'],
         weight_goals:'weight gain',
-        location_list:[],
+        location_list:[]
 
     }
     constructor(props) {
@@ -57,14 +54,7 @@ class  RegistrationForm extends Component{
 
 
      async componentDidMount() {
-
-         var test = await ajax("/location", "1", 'GET')
-
-
-         this.setState({location_list:test.data})
-
-         //this.setState({location_list:[{ "region": "Asia", "country":"India"},{ "region": "Asia", "country":"China"}]})
-
+         this.setState({location_list:(await ajax("http://52.190.2.8:8006/location/", {}, 'GET')).data.locations});
      }
 
     /**
@@ -74,7 +64,6 @@ class  RegistrationForm extends Component{
      */
      onFinish = async (v) => {
          console.log(v)
-         //await register(v.email, v.password, v)
          if(v.usertype == 'athlete')
          {
             v.usertype = true
@@ -96,13 +85,12 @@ class  RegistrationForm extends Component{
 
 
          console.log(userdata);
-         var response =  await ajax("/user/register",userdata,'POST')
+         let response =  await ajax("http://52.190.2.8:8006/user/register",userdata,'POST')
          console.log("Registration Response:"+response.data)
      };
 
 
     render() {
-
 
         const genderChange = (value)=> {
             console.log("genderChange:"+value.target.value)

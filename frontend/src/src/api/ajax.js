@@ -19,6 +19,7 @@ export default function ajax(url,data={},type='GET'){
         let promise
         if(type === 'GET'){
             promise = axiosInstance.get(url, {params:data})//query parameter
+            console.log("GET:" + promise);
         }
         else if(type == 'POST')
         {
@@ -29,6 +30,9 @@ export default function ajax(url,data={},type='GET'){
         {
             console.log("DELETE back-end : "+ url);
             promise = axiosInstance.delete(url,data)
+        }else if(type == 'PATCH'){
+            console.log("PATCH : "+ url);
+            promise = axiosInstance.patch(url,data)
         }
         else
         {

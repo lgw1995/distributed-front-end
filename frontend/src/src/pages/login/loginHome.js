@@ -1,7 +1,11 @@
 import {Form, Input, Drawer, Button, Checkbox, message, Modal, Divider, Radio} from 'antd';
 import React,{Component} from "react";
 import DrawerForm from './registrationDrawer'
-import { withRouter } from 'react-router-dom';
+import {StaticRouter, withRouter} from 'react-router-dom';
+import ajax from "../../api/ajax";
+import User from"../../model/User"
+import StoreUser from"../../utils/StoreUser"
+
 class  LoginHome extends Component{
     state = { visible: false };
      layout = {
@@ -12,7 +16,18 @@ class  LoginHome extends Component{
     tailLayout = {
         wrapperCol: { offset: 8, span: 16 },
     };
-     onFinishFailed = (errorInfo) => {
+
+    constructor(props) {
+        super(props);
+        this.testNet();
+    }
+
+    async testNet() {
+        let response = (await ajax("http://52.190.2.8:8006/location/", {}, 'GET')).data.locations
+        console.log(response);
+    }
+
+    onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
@@ -24,8 +39,24 @@ class  LoginHome extends Component{
      */
      onFinish = async (e) => {
          withRouter(LoginHome)
-         //Authentication request
-         this.props.history.replace('/personal');
+         let response =  await ajax("http://52.190.2.8:8006/user/login", {
+             "email": e.username,
+             "password": e.password
+         },'POST')
+         console.log("login successful");
+         console.log(response);
+
+         StoreUser.save(User.create({
+                 role: response.data.isAthlete,
+                 id: response.data.id,
+                 token: response.data.token,
+             }));
+
+         if(User.ADO === StoreUser.getMyRole()){
+             this.props.history.replace('/personal/ado/athleteslist');
+         } else if (User.ATHLETE === StoreUser.getMyRole()) {
+             this.props.history.replace('/personal/ado/avalibility');
+         }
      };
 
     render(){
@@ -48,7 +79,7 @@ class  LoginHome extends Component{
                 >
                     <Input />
                 </Form.Item>
-
+                <br/>
                 <Form.Item
                     label="Password"
                     name="password"
@@ -56,15 +87,8 @@ class  LoginHome extends Component{
                 >
                     <Input.Password />
                 </Form.Item>
-                <Form.Item name={'usertype'}  label={"Type"} initialValue={"athlete"} rules={[{ required: true, message: '' }]}>
-                    <Radio.Group onChange={genderChange} defaultValue={'athlete'}>
-                        <Radio value={'athlete'}>Athlete</Radio>
-                        <Radio value={'ado'}>ADO</Radio>
-                    </Radio.Group>
-                </Form.Item>
-
-
-
+                <br/>
+                <br/>
 
                 <Form.Item {...this.tailLayout}>
                     <Button type="primary" htmlType="submit">Login</Button>

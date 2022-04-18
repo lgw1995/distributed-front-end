@@ -17,7 +17,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/src/src/pages/athletes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/src/src/pages/ado" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="terminal" />
@@ -26,8 +26,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\codedomain\workspace\modules\ds_front-end-work\frontend\src\src\pages\athletes" />
       <recent name="C:\codedomain\workspace\modules\ds_front-end-work\frontend\src\src\pages\ado" />
+      <recent name="C:\codedomain\workspace\modules\ds_front-end-work\frontend\src\src\pages\athletes" />
     </key>
   </component>
   <component name="RunManager">
@@ -49,6 +49,8 @@
       <workItem from="1649245111807" duration="7645000" />
       <workItem from="1649607895749" duration="4559000" />
       <workItem from="1649702948924" duration="58125000" />
+      <workItem from="1649860981919" duration="1146000" />
+      <workItem from="1650115634540" duration="78717000" />
     </task>
     <servers />
   </component>
