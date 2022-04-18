@@ -54,11 +54,11 @@ export default class Appointment extends Component{
                     dataIndex: 'athleteRegion',
                     key: 'athleteRegion',
                 }, {
-                    title: 'Ado Country',
+                    title: 'Availability Country',
                     dataIndex: 'country',
                     key: 'country',
                 }, {
-                    title: 'Ado Region',
+                    title: 'Availability Region',
                     dataIndex: 'region',
                     key: 'region',
                 }, {

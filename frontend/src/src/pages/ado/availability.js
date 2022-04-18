@@ -39,35 +39,27 @@ export default class Availability extends Component{
             columns: [{
                 title: 'Name',
                 dataIndex: 'athleteName',
-                key: 'name',
                 render: text => <a>{text}</a>,
             },
                 {
                     title: 'Email',
                     dataIndex: 'athleteEmail',
-                    key: 'email',
                 }, {
                     title: 'Athlete Country',
                     dataIndex: 'athleteCountry',
-                    key: 'athleteCountry',
                 }, {
                     title: 'Athlete Region',
                     dataIndex: 'athleteRegion',
-                    key: 'athleteRegion',
                 }, {
-                    title: 'Ado Country',
+                    title: 'Availability Country',
                     dataIndex: 'country',
-                    key: 'country',
                 }, {
-                    title: 'Ado Region',
+                    title: 'Availability Region',
                     dataIndex: 'region',
-                    key: 'region',
                 }, {
                     title: 'Book Status',
                     dataIndex: 'bookStatus',
-                    key: 'bookStatus',
                     render: status => {
-                        // TODO:
                         if (status){
                             return (<Tag color="green">Ready To Book</Tag>);
                         } else{
@@ -77,7 +69,6 @@ export default class Availability extends Component{
                 }, {
                     title: 'time',
                     dataIndex: 'time',
-                    key: 'time',
                     render: text => {
                         let date = new Date(text);
                         // return `${date.getHours()}:${date.getMinutes()} ${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
@@ -85,7 +76,6 @@ export default class Availability extends Component{
                     }
                 }, {
                     title: 'Action',
-                    key: 'action',
                     render: (text, record) => (
                         <Space size="middle">
                             {/*<UpdateAvailability onUpdate={(i, j, k, id) => this.updateNewState(i, j, k, id)} onDelete={(id)=>this.delOneState(id)} record={record}/>*/}
