@@ -83,6 +83,7 @@ class  RegistrationForm extends Component{
              }
          }
 
+         console.log(v.location);
 
          console.log(userdata);
          let response =  await ajax("/user/register",userdata,'POST')
@@ -184,12 +185,6 @@ class  RegistrationForm extends Component{
                 >
                     <Input.Password/>
                 </Form.Item>
-
-
-                <Form.Item name={'age'} label="Age" rules={[{ required: true,type: 'number', min: 0, max: 99 }]}>
-                    <InputNumber/>
-                </Form.Item>
-
 
 
                 <Form.Item name={'location'} label="Location"  rules={[{ required: true}]}>
