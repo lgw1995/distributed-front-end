@@ -94,11 +94,20 @@ export default class Availability extends Component{
 
                         </Space>
                     ),
+                },{
+                    title: 'Athlete Action',
+                    render: (text, record) => (
+                        <Space size="middle">
+                            <UpdateAvailability onUpdate={(i, j, k, id) => this.updateNewState(i, j, k, id)} onDelete={(id)=>this.delOneState(id)} record={record}/>
+                        </Space>
+                    ),
                 }]
             };
 
         if(User.ATHLETE === StoreUser.getMyRole()){
             this.state.columns = this.state.columns.filter((o, i)=> i!==6&&i!==8);
+        } else if(User.ADO === StoreUser.getMyRole()){
+            this.state.columns = this.state.columns.filter((o, i)=> i!==9);
         }
     }
 
