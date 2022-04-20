@@ -63,6 +63,8 @@ export default class AddAvailability extends Component{
     }
 
     onAdd(e){
+        console.log("Country :", this.state.selCountry)
+        console.log("Region: ", this.state.selRegion)
         if(this.state.date && this.state.selCountry && this.state.selRegion){
             let u = `/availability/${StoreUser.getMyId()}`;
             let a = ajax(u, {
@@ -73,7 +75,7 @@ export default class AddAvailability extends Component{
                 }
             }, "POST");
             this.props.onAdd();
-
+            window.location.reload(true);
         } else{
             alert("Error! Please fill this form, Thanks.");
         }
@@ -81,6 +83,7 @@ export default class AddAvailability extends Component{
 
     onSelChanged(e){
         let val = e.target.value.split('-');
+        console.log("Region:",val[0])
         this.setState({selRegion: val[0]});
         this.setState({selCountry: val[1]});
     }
@@ -111,7 +114,7 @@ export default class AddAvailability extends Component{
                             <br />
                             <select onChange={(e)=>this.onSelChanged(e)}>
                                 <option></option>
-                                {this.state.locations.map((o)=> <option value={`${o.country}-${o.region}`}>{o.country}-{o.region}</option>) }
+                                {this.state.locations.map((o)=> <option value={`${o.region}-${o.country}`}>{o.region}-{o.country}</option>) }
                             </select>
                         </label>
                         <br />

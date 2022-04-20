@@ -62,12 +62,14 @@ export default class UpdateAvailability extends Component{
             }
         }, "PATCH");
         this.onClose();
+        window.location.reload(true);
     }
 
     onDelete(e){
         ajax(`/availability/${this.state.availabilityId}`, {}, 'DELETE');
         this.props.onDelete();
         this.onClose();
+        window.location.reload(true);
     }
 
     async componentDidMount() {
